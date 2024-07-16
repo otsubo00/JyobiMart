@@ -1,0 +1,54 @@
+#login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#login .logo-container {
+  text-align: center;
+}
+
+#login .form-container {
+  min-width: 500px;
+}
+
+#login .ui.segment {
+  padding: 20px 30px;
+}
+
+#login .ui.segment button {
+  margin-top: 30px;
+}
+
+/* sign-up */
+#signup {
+  display: flex;
+  justify-content: center;
+}
+
+#signup .logo-container {
+  padding: 50px;
+  text-align: center;
+}
+
+#signup .form-container {
+  min-width: 500px;
+}
+
+#signup .form-container .header {
+  padding: 20px 0;
+  border-bottom: 1px dotted #6F6f6f;
+}
+
+#signup .ui.segment {
+  padding: 10px 30px 20px 30px;
+}
+
+#signup .ui.segment button {
+  margin-top: 30px;
+}
+
+#signup .ui.transparent.input {
+  margin-left: 10px;
+}

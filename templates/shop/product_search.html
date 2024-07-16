@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/shop.css" %}">
+{% endblock extra_css %}
+
+{% block title %}検索結果{% endblock title %}
+
+{% block content %}
+<div class="ui container list" style="padding: 30px 30px;" id="product_search">
+  <p class="search-result">
+    検索結果 {{ Product_list|length }} 件 <b class="keyword">"{{ keyword }}"</b>
+  </p>
+
+  <div class="ui cards">
+    {% for p in Product_list %}
+    <div class="card">
+      <div class="image">
+        <img src="{{ p.image.url }}" class="product-image">
+      </div>
+      <div class="content">
+        <a class="header" href="{% url 'shop:product_detail' product_id=p.id %}">{{ p.name }}</a>
+        <div class="meta">
+          <span class="description">{{ p.description|truncatechars:30 }}</span>
+        </div>
+      </div>
+      <div class="extra content">
+        <span>
+          ¥ {{ p.price|floatformat:0 }}
+        </span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

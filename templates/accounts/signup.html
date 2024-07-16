@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="{% static "css/semantic.min.css" %}">
+  <link rel="stylesheet" href="{% static "css/accounts.css" %}">
+
+  <title>JyobiMart</title>
+</head>
+
+<body>
+  <div id="signup">
+    <div class="contianer">
+      <div class="logo-container">
+        <a href="{% url "shop:index" %}">
+          <img src="{% static "image/logo.png" %}" alt="ロゴ" width="200">
+        </a>
+      </div>
+
+      <div class="ui stackable form-container">
+        <div class="eleven wide column">
+          <div class="ui segment">
+            <h2 class="ui header">サインアップ</h2>
+            <div class="content">
+              <form class="ui form" action="" method="POST">
+                {% csrf_token %}
+                <div class="required {% if errors.username %}error{% endif %}  field">
+                  <label for="username">ユーザーID</label>
+                  <input type="text" name="username" id="username">
+                </div>
+
+                <div class="required {% if errors.email %}error{% endif %} field">
+                  <label for="email">メールアドレス</label>
+                  <input type="email" name="email" id="email">
+                </div>
+
+                <div class="required {% if errors.password %}error{% endif %} field">
+                  <label for="password">パスワード</label>
+                  <input type="password" name="password" id="password">
+                </div>
+
+                <div class="required field">
+                  <label>名前</label>
+                  <div class="two fields">
+                    <div class="{% if errors.last_name %}error{% endif %} field">
+                      <input type="text" name="last_name" placeholder="姓">
+                    </div>
+                    <div class="{% if errors.first_name %}error{% endif %} field">
+                      <input type="text" name="first_name" placeholder="名">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="required {% if errors.post_code %}error{% endif %} field">
+                  <label for="post_code">郵便番号</label>
+                  <input type="text" name="post_code" id="post_code">
+                </div>
+
+                <div class="required {% if errors.address %}error{% endif %} field">
+                  <label for="address">住所</label>
+                  <input type="text" name="address" id="address">
+                </div>
+
+                <div class="required {% if errors.phone_number %}error{% endif %} field">
+                  <label for="phone_number">電話番号</label>
+                  <input type="text" name="phone_number" id="phone_number">
+                </div>
+
+                <button class="fluid ui primary button" type="submit">確認画面へ進む</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="{% static "js/semantic.min.js" %}"></script>
+</body>
+
+</html>

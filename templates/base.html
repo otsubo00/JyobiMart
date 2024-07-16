@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="{% static "image/favicon.ico" %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static "css/semantic.min.css" %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+  <link rel="stylesheet" href="{% static "css/common.css" %}">
+  {% block extra_css %}{% endblock extra_css %}
+
+  <title>JyobiMart{% block title %}{% endblock title %}</title>
+</head>
+<body>
+  <header>
+    <div class="ui container" style="border-bottom: 1px solid #A9A9A9; margin-bottom: 10px">
+      <div class="ui secondary  menu">
+        <div class="ui item">
+          <a href="/"><img src="{% static 'image/logo.png' %}" height="80"></a>
+        </div>
+        <div class="right menu">
+          <div class="ui item">
+            <form id="searchForm" class="ui action input" action="{% url "shop:product_search" %}" method="get">
+              <select name="c" class="ui compact selection dropdown">
+                <option selected="" value="0">すべてのカテゴリー</option>
+                {% for category in categories %}
+                  <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+              </select>
+              <div class="ui icon input">
+                <input type="text" name="k" placeholder="Search...">
+                <i id="searchIcon" class="search link icon"></i>
+              </div>
+            </form>
+          </div>
+
+          {% if request.user.is_authenticated %}
+              <div class="ui dropdown item">
+                {{ request.user.username }}さん
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                  <a class="item" href="{% url 'accounts:config' %}">アカウント設定</a>
+                  <a class="item" href="#">注文履歴</a>
+                  <hr>
+                  <a class="item" href="{% url 'accounts:user_logout' %}">Logout</a>
+                </div>
+              </div>
+              <a class="ui item" href="{% url "shop:cart" %}">
+                <i class="ui shopping cart icon"></i>
+                {{ cart_count|default:0 }}
+              </a>
+          {% else %}
+              <a class="ui item" href="{% url 'accounts:user_login' %}">
+                Login
+              </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {% block content %}{% endblock content %}
+
+  <footer class="ui inverted vertical footer segmemt">
+    <div class="ui container">
+      <div class="ui stackable inverted divided equal height stackable grid">
+        <div class="three wide column">
+          <h4 class="ui inverted header">ヘルプ＆ガイド</h4>
+          <div class="ui inverted link list">
+            <a href="#" class="item">JyobiMartについて</a>
+            <a href="#" class="item">カスタマーサービス</a>
+            <a href="#" class="item">配送料と配送情報</a>
+            <a href="#" class="item">Q&A</a>
+          </div>
+        </div>
+        <div class="three wide column">
+          <h4 class="ui inverted header">About</h4>
+          <div class="ui inverted link list">
+            <a href="#" class="item">sample</a>
+            <a href="#" class="item">sample</a>
+            <a href="#" class="item">sample</a>
+            <a href="#" class="item">sample</a>
+          </div>
+        </div>
+        <div class="eight wide column">
+          <h4 class="ui inverted header">盛岡情報ビジネス＆デザイン専門学校</h4>
+          <p>このサイトは令和6年度情報システム科2年生のDjangoの授業で作成しています。</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+  <script src="{% static "js/semantic.min.js" %}"></script>
+  <script src="{% static "js/common.js" %}"></script>
+  {% block extra_js %}{% endblock extra_js %}
+</body>
+</html>

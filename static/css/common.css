@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #EFEFEF;
+}
+
+/* base header */
+header .ui.container {
+  border-bottom: 1px solid #A9A9A9;
+  margin-bottom: 10px;
+}
+
+.ui.compact.selection.dropdown {
+  min-width: 110px;
+}
+
+/* base footer */
+footer {
+  margin-top: 60px;
+  padding: 70px;
+  background-color: #1B1C1D;
+  color: rgba(255, 255, 255, 0.9);
+}

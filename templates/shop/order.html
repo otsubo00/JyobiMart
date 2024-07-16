@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/shop.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="ui container" id="order">
+  <h2 class="ui header">購入情報確認</h2>
+  <form class="ui form" method="post" action="{% url 'shop:order' %}">
+    {% csrf_token %}
+    <div class="field">
+      <label>名前</label>
+      <input type="text" name="name" value="{{ user.first_name }} {{ user.last_name }}" readonly>
+    </div>
+    <div class="field">
+      <label>メールアドレス</label>
+      <input type="email" name="email" value="{{ user.email }}" readonly>
+    </div>
+    <div class="field">
+      <label>住所</label>
+      <input type="text" name="address" value="{{ user.address }}" readonly>
+    </div>
+    <div class="field">
+      <label>電話番号</label>
+      <input type="text" name="phone_number" value="{{ user.phone_number }}" readonly>
+    </div>
+    <button class="ui primary button" type="submit">購入を確定する</button>
+  </form>
+</div>
+{% endblock content %}

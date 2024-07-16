@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static "css/semantic.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/accounts.css" %}">
+
+    <title>JyobiMart</title>
+</head>
+<body>
+    <div id="login">
+        <div>
+            <div class="logo-container">
+                <a href="{% url "shop:index" %}">
+                    <img src="{% static "image/logo.png" %}" alt="ロゴ" width="200">
+                </a>
+            </div>
+            <div class="ui stackable form-container">
+                <div class="eleven wide column">
+                    <div class="ui segment">
+                        <div class="content">
+                            <form class="ui form" action="" method="POST">
+                                {% csrf_token %}
+                                <div class="field">
+                                    <label for="username">ユーザーID</label>
+                                    <input type="text" name="username" id="username" required>
+                                </div>
+                                <div class="field">
+                                    <label for="password">パスワード</label>
+                                    <input type="password" name="password" id="password" required>
+                                </div>
+
+                                <button class="fluid ui primary button" type="submit">ログイン</button>
+                            </form>
+                        </div>
+                    </div>
+                    <a class="ui item" href="{% url 'accounts:signup' %}">ユーザー登録</a>
+                    {% comment %} <a class="ui item" href="{% url 'password_reset' %}">パスワードを忘れた場合</a> {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static "js/semantic.min.js" %}"></script>
+    <script src="{% static "js/common.js" %}"></script>
+</body>
+</html>

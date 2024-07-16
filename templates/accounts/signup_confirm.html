@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="{% static "css/semantic.min.css" %}">
+  <link rel="stylesheet" href="{% static "css/accounts.css" %}">
+
+  <title>JyobiMart</title>
+</head>
+
+<body>
+  <div id="signup">
+    <div class="contianer">
+      <div class="logo-container">
+        <a href="{% url "shop:index" %}">
+          <img src="{% static "image/logo.png" %}" alt="ロゴ" width="200">
+        </a>
+      </div>
+      <div class="ui stackable form-container">
+        <div class="eleven wide column">
+          <div class="ui segment">
+            <h2 class="ui header">確認画面</h2>
+            <div class="content">
+
+              {% if form.errors %}
+                <div class="ui error message">
+                  <ul class="list">
+                    {% for error in form.errors %}
+                      <li>{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}
+
+              <form class="ui form" action="" method="POST">
+                {% csrf_token %}
+                <div class="required field">
+                  <label for="username">ユーザーID</label>
+                  <div class="ui transparent input">
+                    <input type="text" name="username" id="username" value="{{ form.initial.username }}" readonly>
+                  </div>
+                </div>
+
+                <div class="required field">
+                  <label for="email">メールアドレス</label>
+                  <div class="ui transparent input">
+                    <input type="email" name="email" id="email" value="{{ form.initial.email }}" readonly>
+                  </div>
+                </div>
+
+                <div class="two fields">
+                  <div class="required field">
+                    <label for="last_name">姓</label>
+                    <div class="ui transparent input">
+                      <input type="text" name="last_name" id="last_name" value="{{ form.initial.last_name }}" readonly>
+                    </div>
+                  </div>
+
+                  <div class="required field">
+                    <label for="last_name">名</label>
+                    <div class="ui transparent input">
+                      <input type="text" name="first_name" id="first_name" value="{{ form.initial.first_name }}" readonly>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="required field">
+                  <label for="post_code">郵便番号</label>
+                  <div class="ui transparent input">
+                    <input type="text" name="post_code" id="post_code" value="{{ form.initial.post_code }}" readonly>
+                  </div>
+                </div>
+
+                <div class="required field">
+                  <label for="address">住所</label>
+                  <div class="ui transparent input">
+                    <input type="text" name="address" id="address" value="{{ form.initial.address }}" readonly>
+                  </div>
+                </div>
+
+                <div class="required field">
+                  <label for="phone_number">電話番号</label>
+                  <div class="ui transparent input">
+                    <input type="text" name="phone_number" id="phone_number" value="{{ form.initial.phone_number }}" readonly>
+                  </div>
+                </div>
+
+
+                <button class="fluid ui primary button" type="submit">登録</button>
+                <a href="{% url 'accounts:signup' %}" class="fluid ui button" style="margin-top: 10px;">戻る</a>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="{% static "js/semantic.min.js" %}"></script>
+</body>
+
+</html>

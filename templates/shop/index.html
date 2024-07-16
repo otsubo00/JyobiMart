@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/shop.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="ui container" id="top">
+  <div id="banner" class="banner">
+    <div><img class="ui image" src="{% static "image/banner01.png" %}" alt="TOP画像"></div>
+    <div><img class="ui image" src="{% static "image/banner02.png" %}" alt="TOP画像"></div>
+    <div><img class="ui image" src="{% static "image/banner03.png" %}" alt="TOP画像"></div>
+    <div><img class="ui image" src="{% static "image/banner04.png" %}" alt="TOP画像"></div>
+  </div>
+
+  <h3 class="ui header">おすすめ商品</h3>
+  <div class="ui link cards products">
+    {% for _ in "x"|rjust:10 %}
+      <div class="card">
+        <div class="image">
+          <img src="{% static "image/dummy.png" %}" alt="ダミー画像">
+        </div>
+        <div class="content">
+          <h3 class="header">サンプル商品</h3>
+          <p class="description">商品説明が入ります。商品説明が入ります。商品説明が入ります。商品説明が入ります。</p>
+          <p>価格：1000円</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="ui grid feature-products">
+    {% for _ in "x"|rjust:4 %}
+    <div class="four wide column">
+      <h4 class="ui header">特集商品</h4>
+      <div class="ui grid">
+        <div class="row">
+          <div class="eight wide column"><img src="{% static "image/dummy.png" %}" alt="サンプル画像"></div>
+          <div class="eight wide column"><img src="{% static "image/dummy.png" %}" alt="サンプル画像"></div>
+        </div>
+        <div class="row">
+          <div class="eight wide column"><img src="{% static "image/dummy.png" %}" alt="サンプル画像"></div>
+          <div class="eight wide column"><img src="{% static "image/dummy.png" %}" alt="サンプル画像"></div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <h3 class="ui header">閲覧履歴</h3>
+  <div class="ui link cards products">
+    {% for _ in "x"|rjust:10 %}
+      <div class="card">
+        <div class="image">
+          <img src="{% static "image/dummy.png" %}" alt="ダミー画像">
+        </div>
+        <div class="content">
+          <h3 class="header">サンプル商品</h3>
+          <p class="description">商品説明が入ります。商品説明が入ります。商品説明が入ります。商品説明が入ります。</p>
+          <p>価格：1000円</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  $(document).ready(function(){
+    $('#banner').slick({
+      autoplay: true,
+      autoplaySpeed: 5000, // 自動再生の間隔（ミリ秒）
+      arrows: true // 矢印の表示
+    });
+  });
+</script>
+{% endblock extra_js %}

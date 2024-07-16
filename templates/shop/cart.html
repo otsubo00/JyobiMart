@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/shop.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="ui container" id="cart">
+  <div class="ui grid">
+    <div class="twelve wide column">
+      <div class="ui items">
+        <h2 class="ui header">ショッピングカート</h2>
+        {% for item in cart_list %}
+        <hr>
+        <div class="item">
+          <a href="{% url 'shop:delete_cart' product_id=item.product_id.id %}" class="remove-link">
+            <i class="times icon"></i>
+          </a>
+          <div class="ui small image">
+            <img src="{{ item.product_id.image.url }}" alt="">
+          </div>
+          <div class="middle aligned content">
+            <h3 class="ui header">{{ item.product_id.name }}</h3>
+            <div class="meta">
+              {% if item.product_id.stock > 0 %}
+                <h4 class="ui header green">在庫あり</h4>
+              {% else %}
+                <h4 class="ui header red">在庫なし</h4>
+              {% endif %}
+            </div>
+            <form action="{% url 'shop:update_cart' product_id=item.product_id.id %}" method="post" class="description">
+              {% csrf_token %}
+              <span>
+                数量:
+                {% if item.product_id.stock == 0 %}
+                <select name="quantity" class="quantity" disabled>
+                  <option value="0">0</option>
+                </select>
+                {% else %}
+                <select name="quantity" class="quantity">
+                  {% for _ in "x"|rjust:item.product_id.stock %}
+                    {% if forloop.counter == item.quantity %}
+                    <option value="{{ forloop.counter }}" selected="selected">{{ forloop.counter }}</option>
+                    {% else %}
+                    <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+                {% endif %}
+              </span>
+            </form>
+          </div>
+          <div class="price-container">
+            <h3 class="ui header">¥{{ item.product_id.price|floatformat:0|intcomma }}</h3>
+          </div>
+        </div>
+        {% endfor %}
+        <hr>
+        <div class="subtotal-container">
+          <h3 class="ui right aligned header">小計　¥{{ total_price|floatformat:0|intcomma }}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="four wide column">
+      <div class="ui vertical menu">
+        <div class="subtotal-section">
+          <span>小計 ({{ cart_all_quantity }} 個の商品) (税込)</span>
+          <h2 class="ui header">¥{{ total_price|floatformat:0|intcomma }}</h2>
+          <a href="{% url 'shop:order' %}" class="fluid ui primary button">レジに進む</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="ui header">閲覧履歴</h3>
+  <div class="ui link cards products">
+    {% for _ in "x"|rjust:10 %}
+      <div class="card">
+        <div class="image">
+          <img src="{% static "image/dummy.png" %}" alt="ダミー画像">
+        </div>
+        <div class="content">
+          <h3 class="header">サンプル商品</h3>
+          <p class="description">商品説明が入ります。商品説明が入ります。商品説明が入ります。商品説明が入ります。</p>
+          <p>価格：1000円</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+  $(document).ready(function() {
+    $(".quantity").change(function() {
+      $(this).closest("form").submit();
+    });
+  });
+</script>
+{% endblock extra_js %}

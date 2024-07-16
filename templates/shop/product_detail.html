@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/shop.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="ui center aligned center fluid-container" id="product_detail">
+  <div class="ui grid product-grid">
+    <div class="thirteen wide column product-content">
+      <div class="ui grid">
+        <div class="seven wide column">
+          <img src="{{ product.image.url }}" class="product-image">
+        </div>
+
+        <div class="nine wide column product-info">
+          <h1 class="ui header product-name">{{ product.name }}</h1>
+          <p>{{ product.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="three wide column">
+      <div class="ui vertical menu" style="width: 100%;">
+        <div class="price-section">
+          <h2 class="ui right aligned header">価格　¥{{ product.price|floatformat:0|intcomma }}</h2>
+          {% if product.stock > 0 %}
+          <h4 class="ui header green">在庫あり</h4>
+          {% else %}
+          <h4 class="ui header column red">在庫なし</h4>
+          {% endif %}
+
+          <div class="quantity-section">
+            <span>数量</span>
+            <select id="quantity" class="quantity-select">
+              {% for _ in "x"|rjust:product.stock %}
+              <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <a id="add_cart_link" href="{% url 'shop:add_cart' product.id %}" class="fluid ui primary button add-to-cart-btn" onclick="this.href='{% url 'shop:add_cart' product.id %}?q=' + document.getElementById('quantity').value;">カートに追加</a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/shop.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="ui container" id="order_complete">
+  <h2 class="ui header">購入完了</h2>
+  <p>ご注文ありがとうございます。注文が完了しました。</p>
+  <a href="{% url 'shop:index' %}" class="ui primary button">トップページに戻る</a>
+</div>
+{% endblock content %}
